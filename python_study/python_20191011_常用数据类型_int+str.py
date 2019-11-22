@@ -105,9 +105,54 @@
 # 去除指定字符 字符串.strip() # 去掉头尾指定的字符或字符串
 # s = '   明天，你好!'
 # print(s)
-# print(s.strip(' '))
+# print(s.strip(' ')) #去掉空格
 # print(s.strip('!'))
 # print(s.strip('你'))  # 不能去掉中间字符
 # print(s.strip('好!'))
 
+
 '''str.upper()'''
+#  将小写转换成大写    # 转换后的需重新用变量接收
+# str_1 = 'hello'
+# print(str_1.upper())
+# print(str_1)
+
+'''str.lower()'''
+#  将大写转换成小写    # 转换后的需重新用变量接收
+# str_2 = 'HELLO'
+# print(str_2.lower())
+# print(str_2)
+
+'''str.capitalize()'''
+#  首字母大写   # 转换后的需重新用变量接收
+# str_3 = 'hello'
+# print(str_3.capitalize())
+# print(str_3)
+
+
+'''str.swapcase()'''
+#  大小写互换（将小写转换成大写，将大写转换成小写）  # 转换后的需重新用变量接收
+# str_4 = 'HEllo'
+# print(str_4.swapcase())
+# print(str_4)
+
+'''str.count()'''  # 统计字符串中有多少个指定字符或字符串
+# str_5 = 'hello'
+# print(str_5.count('l'))
+# print(str_5.count('he'))
+
+'''str.index()'''  # 找字符或字符串所在索引
+# str_6 = 'hello'
+# print(str_6.index('h'))
+# print(str_6.index('lo'))  # 返回字符串首字符的索引
+
+
+'''str.join()'''  # str字符串被插入到给定字符之间  # 插入后字符串需重新接收
+# str_7 = 'hello'
+# print(str_7.join('你好'))
+# print(str_7.join(['同学', '请问你喜欢Python嘛？']))
+# print(str_7)
+
+'''str.isdigit()'''  # 判断输入的字符串是否是数字
+'''str.isupper()'''  # 判断输入的字符串是否是大写
+'''str.islower()'''  # 判断输入的字符串是否是小写
