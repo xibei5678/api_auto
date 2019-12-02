@@ -59,6 +59,6 @@
 #             d[s] = s
 #     else:
 #         print('字符串是字典的值')
-#     print(d)
+#     print(d).
 #
 # check_dict({'name': '溪贝', "sex": "女"}, 'name')
