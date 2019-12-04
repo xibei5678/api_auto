@@ -72,14 +72,15 @@ import os
 # print(os.path.join(file_path, 'test', 'python_20191201_文件操作.py'))
 
 '''路径切割'''
-# os.path.split()
+# os.path.split() #  返回元组
 # file_path = os.path.realpath(__file__)
 # print(os.path.split(file_path))
 
 ''' 获取目录列表'''
 # os.listdir(文件目录) # 返回list 相当于命令ll
-print(os.listdir(os.getcwd()))
-# 结果为：
+# print(os.listdir(os.getcwd()))
+# 结果为：['python_20191010_安装环境及语法.py', 'python_20191011_常用数据类型_int+str.py'.....]
+
 
 
 
