@@ -61,7 +61,6 @@
 
 '''类中的方法相互调用'''
 
-
 # class SeniorTestingEngineer:  # 高级测试工程师类
 #     # 属性
 #     work_year = 3
@@ -89,7 +88,6 @@
 #         cls.do_sql()  # 静态方法调用
 
 
-
 # p = SeniorTestingEngineer()  # 创建实例
 
 # p.coding()  # 测试 类方法和静态方法 调用
@@ -97,3 +95,5 @@
 # p.do_sql()  # 测试 对象方法和类方法 调用
 
 # p.do_linux()  # 测试 对象方法和静态方法 调用
+
+
