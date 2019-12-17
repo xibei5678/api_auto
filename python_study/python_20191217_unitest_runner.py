@@ -20,8 +20,8 @@ suite.addTest(TestSai('test_add_negative'))
 suite.addTest(TestSai('test_add_zero'))
 
 # 2) TestLoader 测试类、模块添加
-# suite.addTest(unittest.TestLoader().loadTestsFromTestCase(TestSai))  # 直接加载测试类
-# suite.addTest(unittest.TestLoader().loadTestsFromModule('python_20191217_unittest'))  # 直接加载测试类的模块名
+# suite.addTest(unittest.TestLoader().loadTestsFromTestCase(TestSai))  # 直接加载测试类,导入的时候只具体到类名
+# suite.addTest(unittest.TestLoader().loadTestsFromModule('python_20191217_unittest'))  # 直接加载测试类的模块名，导入的时候只具体到模块名
 
 
 # 执行用例
