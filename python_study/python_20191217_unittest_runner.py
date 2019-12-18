@@ -25,4 +25,16 @@ suite.addTest(TestSai('test_add_zero'))
 
 
 # 执行用例
-runner = unittest.TextTestRunner().run(suite)
+unittest.TextTestRunner().run(suite)  # 输出结果到控制台
+
+# 输出测试报告
+
+# 方式一：txt文件
+# with open('单元测试报告.txt', 'w+') as file:
+#     unittest.TextTestRunner(stream=file, verbosity=2).run(suite)
+
+# 方式二：html文件
+# import HTMLTestRunnerNew
+#
+# with open('单元测试报告.html', 'wb+') as file:
+#     HTMLTestRunnerNew.HTMLTestRunner(stream=file, title='单元测试报告', description='数学计算', tester='xibei').run(suite)
