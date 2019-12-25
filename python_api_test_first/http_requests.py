@@ -59,6 +59,9 @@ class HttpRequests:
     def response_cookies(self):
         return self.res.cookies
 
+    def response_status_code(self):
+        return  self.res.status_code
+
     # def response_code(self):
     #     return self.response_json()['code']
     #
@@ -66,15 +69,5 @@ class HttpRequests:
     #     return self.response_json()['msg']
 
 
-if __name__ == '__main__':
 
-    # 登录地址和数据
-    login = 'http://47.107.168.87:8080/futureloan/mvc/api/member/login'
-    login_data = {'mobilephone': 18688773467, 'pwd': '123456'}
-    res = HttpRequests(login, 'get', login_data)
-    print(res.response_json())
-
-    # #充值 地址和数据
-    # recharge='http://47.107.168.87:8080/futureloan/mvc/api/member/recharge'
-    # recharge_data = {'mobilephone': 18688773467, 'amount': '1000'}
 
