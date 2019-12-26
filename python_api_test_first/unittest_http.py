@@ -35,23 +35,17 @@ class HttpUnittest(unittest.TestCase):
 
     def setUp(self):
         print("********开始进入测试********")
-        print("正在执行用例：{}".format(self.title))
-        print("请求地址:".format(self.url))
-        print("请求方法:".format(self.method))
-        print("请求参数:".format(self.params))
-        print("期望结果:".format(self.expect))
 
     def tearDown(self):
         print("********用例测试结束********")
 
     def test_http(self):
-        # print("正在执行用例：{}".format(self.title))
-        # print("请求地址:".format(self.url))
-        # print("请求方法:".format(self.method))
-        # print("请求参数:".format(self.params))
-        # print("期望结果:".format(self.expect))
+        print("正在执行用例：{}".format(self.title))
+        print("请求地址:{}".format(self.url))
+        print("请求方法:{}".format(self.method))
+        print("请求参数:{}".format(self.params))
+        print("期望结果:{}".format(self.expect))
         global COOKIES
-        self.params = eval(self.params)
         res = HttpRequests(method=self.method, url=self.url, params=self.params, cookies=COOKIES)
         if res.response_cookies():  # 当cookies有值时 就修改COOKIES
             # global COOKIES # 在此处声明 会报错，需在使用COOKIES之前声明
@@ -66,7 +60,6 @@ class HttpUnittest(unittest.TestCase):
         else:
             print(res.response_status_code())
             print(res.response_text())
-
 
 
 

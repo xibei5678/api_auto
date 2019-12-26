@@ -7,11 +7,19 @@
 '''
 
 from openpyxl import load_workbook
+import pandas
 
 
 class DoExcel:
 
-    def do_excel(self, file_name, sheet_name):
+    @staticmethod
+    def do_excel(file_name, sheet_name):
+        '''
+        利用 openpyxl 进行读取数据
+        :param file_name: 工作薄地址
+        :param sheet_name: 表单名
+        :return: 返回list包裹的字典数据
+        '''
         wb = load_workbook(file_name)
         sheet = wb[sheet_name]
         test_case = []
@@ -28,9 +36,39 @@ class DoExcel:
 
         return test_case
 
+    @staticmethod
+    def do_pandas(file_name, sheet_name):
+        '''
+        利用pandas读取数据
+        :param file_name: 工作薄地址
+        :param sheet_name: 表单名
+        :return: 返回list包裹的字典数据
+        '''
+
+        sheet_data = pandas.read_excel(file_name, sheet_name=sheet_name)
+        # 获取表头
+        sheet_title = sheet_data.columns.values
+        # 获取行索引
+        row_index = sheet_data.index.values
+
+        test_case = []
+        for j in row_index:
+            row_data = sheet_data.loc[j, sheet_title].to_dict()
+            test_case.append(row_data)
+        return test_case
+
+
+
+
+
+
 
 if __name__ == '__main__':
     a = DoExcel()
-    for i in a.do_excel('test_case.xlsx', 'Sheet1'):
+    # for i in a.do_excel('test_case.xlsx', 'Sheet1'):
+    #     print(i)
+    #     print()
+
+    for i in a.do_pandas('test_case.xlsx', 'Sheet1'):
         print(i)
         print()
