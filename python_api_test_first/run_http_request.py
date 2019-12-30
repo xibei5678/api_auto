@@ -10,6 +10,7 @@ import unittest
 from python_api_test_first.unittest_http import HttpUnittest
 import HTMLTestRunnerNew
 from python_api_test_first.do_excel import DoExcel
+from python_api_test_first.read_conf import ReadConf
 
 # 方式一：手动编写测试数据
 # test_data = [{'title': '登录_成功', 'url': 'http://47.107.168.87:8080/futureloan/mvc/api/member/login', 'method': 'get',
@@ -30,6 +31,8 @@ from python_api_test_first.do_excel import DoExcel
 
 # 方式三：利用pandas模块从excel读取数据
 test_data = DoExcel.do_pandas('test_case.xlsx', 'Sheet1')
+
+url_ip = ReadConf().read_conf('case.conf', 'url', 'url')
 
 suite = unittest.TestSuite()
 loader = unittest.TestLoader()
