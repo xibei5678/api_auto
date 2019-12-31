@@ -32,13 +32,14 @@ from python_api_test_first.read_conf import ReadConf
 # 方式三：利用pandas模块从excel读取数据
 test_data = DoExcel.do_pandas('test_case.xlsx', 'Sheet1')
 
-url_ip = ReadConf().read_conf('case.conf', 'url', 'url')
+url_ip = ReadConf().read_conf('case.conf', 'case', 'url')
 
 suite = unittest.TestSuite()
 loader = unittest.TestLoader()
 
 for item in test_data:
-    suite.addTest(HttpUnittest(title=item['title'], url=item['url'], method=item['method'], params=eval(item['params']), expect=item['expect'], methodName='test_http'))
+    suite.addTest(HttpUnittest(title=item['title'], url=url_ip+item['url'], method=item['method'], params=eval(item['params']), expect=item['expect'], methodName='test_http'))
 
 with open('unittest_result.html', 'wb+') as file:
     HTMLTestRunnerNew.HTMLTestRunner(file, title='单元测试结果', description='登录和充值测试用例').run(suite)
+
