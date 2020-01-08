@@ -15,6 +15,11 @@
 #    1).错误等级分为：debug、info、warning、error、critical 五个等级，依次越来越严重
 #    2）. 默认收集并输出warning级别以上的日志
 #    3）. 默认输出到控制台（console）
+# 4. 注意：
+#    如:DoLog类
+#   1）：直接在init函数中编写构造logger，在引用时容易出现输出到console的信息不能输出到测试报告中
+#   2）：在添加输出渠道后，未移除输出渠道，在被其他模块引用后会出现日志信息重复
+#
 
 
 import logging
@@ -54,12 +59,58 @@ fh.setFormatter(log_format)  # 设置输出日志信息格式
 my_logger.addHandler(ch)  #把输出渠道添加给logger收集器
 my_logger.addHandler(fh)
 
-my_logger.debug('这是一个debug日志错误')
-my_logger.info('这是一个info日志错误')
-my_logger.warning('这是一个warning日志错误')
-my_logger.error('这是一个error日志错误')
-my_logger.critical('这是一个critical日志错误')
+# my_logger.debug('这是一个debug日志错误')
+# my_logger.info('这是一个info日志错误')
+# my_logger.warning('这是一个warning日志错误')
+# my_logger.error('这是一个error日志错误')
+# my_logger.critical('这是一个critical日志错误')
 
 
 
+# 示例（对应注意中的第一点）
 
+class DoLog:
+
+    def __init__(self):
+        self.my_log = logging.getLogger('my_log')
+        simple_formatter = logging.Formatter('%(asctime)s - [%(levelname)s] - [日志信息]:%(message)s')
+        # 日志收集等级
+        self.my_log.setLevel('DEBUG')
+
+        # 日志输出渠道--控制台
+        self.ch = logging.StreamHandler()
+        self.ch.setLevel('INFO')
+        self.ch.setFormatter(simple_formatter)
+
+        # 日志输出渠道--txt文档
+        self.fh = logging.FileHandler('log.txt', encoding='utf-8')
+        self.fh.setLevel('ERROR')
+        self.fh.setFormatter(simple_formatter)
+
+        # 对接
+        self.my_log.addHandler(self.ch)
+        self.my_log.addHandler(self.fh)
+
+    def debug(self, msg):
+        return self.my_log.debug(msg)
+
+    def info(self, msg):
+        return self.my_log.info(msg)
+
+    def warning(self, msg):
+        return self.my_log.warning(msg)
+
+    def error(self, msg):
+        return self.my_log.error(msg)
+
+    def critical(self, msg):
+        return self.my_log.critical(msg)
+
+if __name__ == '__main__':
+
+    my_logger = DoLog()
+    my_logger.debug('这是一个debug日志错误')
+    my_logger.info('这是一个info日志错误')
+    my_logger.warning('这是一个warning日志错误')
+    my_logger.error('这是一个error日志错误')
+    my_logger.critical('这是一个critical日志错误')
