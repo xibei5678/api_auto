@@ -56,21 +56,31 @@ class DoHttp:
         return self.session.close()
 
 if __name__ == '__main__':
-    test_data = [{'title': '登录_成功', 'url': 'http://47.107.168.87:8080/futureloan/mvc/api/member/login', 'method': 'get',
-                  'params': {'mobilephone': 18688773467, 'pwd': '123456'}, 'expect': '登录成功'},
-                 {'title': '登录_手机号错误', 'url': 'http://47.107.168.87:8080/futureloan/mvc/api/member/login', 'method': 'get',
-                  'params': {'mobilephone': 18688773467, 'pwd': '123'}, 'expect': '用户名或密码错误'},
-                 {'title': '登录_密码错误', 'url': 'http://47.107.168.87:8080/futureloan/mvc/api/member/login', 'method': 'get',
-                  'params': {'mobilephone': 186887767, 'pwd': '123456'}, 'expect': '用户名或密码错误'},
-                 {'title': '充值_成功', 'url': 'http://47.107.168.87:8080/futureloan/mvc/api/member/recharge', 'method': 'post',
-                  'params': {'mobilephone': 18688773467, 'amount': '1000'}, 'expect': '充值成功'},
-                 {'title': '充值_手机号错误', 'url': 'http://47.107.168.87:8080/futureloan/mvc/api/member/recharge', 'method': 'post',
-                  'params': {'mobilephone': 1868871767, 'amount': '1000'}, 'expect': '手机号码格式不正确'},
-                 {'title': '充值_金额格式错误', 'url': 'http://47.107.168.87:8080/futureloan/mvc/api/member/recharge', 'method': 'post',
-                  'params': {'mobilephone': 18688773467, 'amount': '1000.001'}, 'expect': '输入金额的金额小数不能超过两位'}]
+
+    # test_data = [{'title': '登录_成功', 'url': 'http://47.107.168.87:8080/futureloan/mvc/api/member/login', 'method': 'get',
+    #               'params': {'mobilephone': 18688773467, 'pwd': '123456'}, 'expect': '登录成功'},
+    #              {'title': '登录_手机号错误', 'url': 'http://47.107.168.87:8080/futureloan/mvc/api/member/login', 'method': 'get',
+    #               'params': {'mobilephone': 18688773467, 'pwd': '123'}, 'expect': '用户名或密码错误'},
+    #              {'title': '登录_密码错误', 'url': 'http://47.107.168.87:8080/futureloan/mvc/api/member/login', 'method': 'get',
+    #               'params': {'mobilephone': 186887767, 'pwd': '123456'}, 'expect': '用户名或密码错误'},
+    #              {'title': '充值_成功', 'url': 'http://47.107.168.87:8080/futureloan/mvc/api/member/recharge', 'method': 'post',
+    #               'params': {'mobilephone': 18688773467, 'amount': '1000'}, 'expect': '充值成功'},
+    #              {'title': '充值_手机号错误', 'url': 'http://47.107.168.87:8080/futureloan/mvc/api/member/recharge', 'method': 'post',
+    #               'params': {'mobilephone': 1868871767, 'amount': '1000'}, 'expect': '手机号码格式不正确'},
+    #              {'title': '充值_金额格式错误', 'url': 'http://47.107.168.87:8080/futureloan/mvc/api/member/recharge', 'method': 'post',
+    #               'params': {'mobilephone': 18688773467, 'amount': '1000.001'}, 'expect': '输入金额的金额小数不能超过两位'}]
+
+    # req = DoHttp()
+    # for item in test_data:
+    #     res = req(url=item['url'], method=item['method'], data=item['params'])
+    #     print(res.json())
+    #     req.close_request()
+
+# 车辆新增
 
     req = DoHttp()
-    for item in test_data:
-        res = req(url=item['url'], method=item['method'], data=item['params'])
-        print(res.json())
-        req.close_request()
+    url = 'http://49.4.52.176/api/vehicleTerminal/save'
+    method = 'post'
+    params = {"vehicleVin":"","vehicleModel":"222","vehicleSm":"333","detectionOrg":"444","dischargeStandard":"555","responsibleName":"666","responsiblePhone":"13230151561","responsibleEmail":"266555@qq.com"}
+    res = req(method, url, params, is_json=True)
+    print(res.json())

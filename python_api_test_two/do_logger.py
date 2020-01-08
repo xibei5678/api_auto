@@ -15,15 +15,15 @@ from python_api_test_two.basic import base_path, conf_path
 conf_value = DoConf(conf_path)  # 创建实例
 
 
-
+#
 class DoLog:
 
-    def __init__(self):
-        self.my_log = logging.getLogger('my_log')
+    def do_log(self, level, msg):
+        my_log = logging.getLogger(conf_value('log', 'log_name'))
         simple_formatter = logging.Formatter(conf_value('log', 'simple_formatter'))  # 从配置文件中获取格式
         particular_formatter = logging.Formatter(conf_value('log', 'particular_formatter'))
         # 日志收集等级
-        self.my_log.setLevel('DEBUG')
+        my_log.setLevel('DEBUG')
 
         # 日志输出渠道--控制台
         ch = logging.StreamHandler()
@@ -36,23 +36,44 @@ class DoLog:
         fh.setFormatter(particular_formatter)
 
         # 对接
-        self.my_log.addHandler(ch)
-        self.my_log.addHandler(fh)
+        my_log.addHandler(ch)
+        my_log.addHandler(fh)
+
+        if level == 'DEBUG':
+            result = my_log.debug(msg)
+        elif level == 'INFO':
+            result = my_log.info(msg)
+        elif level == 'WARNING':
+            result = my_log.warning(msg)
+        elif level == 'ERROR':
+            result = my_log.error(msg)
+        elif level == 'CRITICAL':
+            result = my_log.critical(msg)
+        else:
+            result = None
+
+        # 移除输出渠道 handle
+        my_log.removeHandler(ch)
+        my_log.removeHandler(fh)
+
+        return result
 
     def debug(self, msg):
-        return self.my_log.debug(msg)
+        return self.do_log('DEBUG',msg)
 
     def info(self, msg):
-        return self.my_log.info(msg)
+        return self.do_log('INFO', msg)
 
     def warning(self, msg):
-        return self.my_log.warning(msg)
+        return self.do_log('WARNING', msg)
 
     def error(self, msg):
-        return self.my_log.error(msg)
+        return self.do_log('ERROR', msg)
 
     def critical(self, msg):
-        return self.my_log.critical(msg)
+        return self.do_log('CRITICAL', msg)
+
+
 
 if __name__ == '__main__':
 
