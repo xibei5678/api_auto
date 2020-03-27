@@ -20,7 +20,8 @@
 # def test_函数名（self,参数）： # 被装饰的测试用例函数可以传参数
 # 4. 第三方库 需安装：pip install ddt
 # 5. ddt装饰后的测试用例不能被识别，加载用例需使用loader进行加载
-
+# 6.@file_data 读取文件数据（json/yaml）
+# 7.待扩展parameterized模块，用于参数化
 
 ''' * 符号 '''
 # 1.有去外套的作用
