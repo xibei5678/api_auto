@@ -5,7 +5,7 @@
 # @description ：mysql 数据库连接
 
 import pymysql
-from python_api_test_qianchendai.common.read_conf import ReadConf
+from python_api_test_qianchendai.common.read_conf import DoConf
 
 
 

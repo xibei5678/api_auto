@@ -36,16 +36,41 @@ import configparser
 cf = configparser.ConfigParser()
 
 # 打开待读取文件
-cf.read('python_20191230_配置文件.conf', encoding='utf-8')  # 配置文件中如果有中文，需设置编码
+# cf.read('python_20191230_配置文件.conf', encoding='utf-8')  # 配置文件中如果有中文，需设置编码
 
 # 获取所有的section片段
-print(cf.sections())  # 返回list
+# print(cf.sections())  # 返回list
 
 # 获取某片段下所有option
-print(cf.options('students'))  # 返回list
+# print(cf.options('students'))  # 返回list
 
 # 获取指定的option值
-print(cf.get('students', 'name'))  # 优先使用该方法
-print(cf['students']['name'])
+# print(cf.get('students', 'name'))  # 优先使用该方法
+# print(cf['students']['name'])
 
+# 向配置文件中添加section
+# cf.add_section("user")
+
+# 添加option 和值
+# cf.set(section="user", option="name", value="啦啦")
+
+# 像配置文件中写入或修改都需要此操作 否则文件未被修改
+# with open("python_20191230_配置文件.conf", "a+", encoding="utf-8") as f:
+#     cf.write(f)
+
+
+if __name__ == '__main__':
+
+    cf = configparser.ConfigParser()
+    cf.read('python_20191230_配置文件.conf', encoding='utf-8')
+    sect = "user"
+    if sect not in cf.sections():
+        cf.add_section(sect)
+        cf.set(section=sect, option="phone", value="123456")
+        with open("python_20191230_配置文件.conf", "w+", encoding="utf-8") as f:
+            cf.write(f)
+    else:
+        cf.set(section=sect, option="phone", value="123456")
+        with open("python_20191230_配置文件.conf", "w+", encoding="utf-8") as f:
+            cf.write(f)
 
