@@ -27,8 +27,13 @@ class DoMysql:
         curo.execute(sql)  # 执行sql
         return curo.fetchone()  # 返回结果数据 元组形式
 
+    def close_connect(self):  # 断开连接
+        return self.cont.close()
+
+
 
 if __name__ == '__main__':
+
     sql = 'SELECT * FROM member WHERE MobilePhone !="" ORDER BY MobilePhone DESC LIMIT 1'
     my_sql = DoMysql()
     result = my_sql.fecth_one(sql)
