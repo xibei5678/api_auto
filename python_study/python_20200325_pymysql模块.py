@@ -17,9 +17,10 @@
 #         d.执行sql
 #         e.返回结果
 
+# 4：注意：如果需要返回的数据格式为字典，可使用connect中的cursorclass参数，
+#        cursorclass=pymysql.cursors.DictCursor时，fetchone或fetchall 返回的数据均为字典，不再为元祖
 
 import pymysql
-
 
 
 class DoMysql:
@@ -53,6 +54,7 @@ class DoMysql:
     def db_close(self):
         return self.cont.close()  # 关闭数据连接
 
+
 if __name__ == '__main__':
 
     host = "test.lemonban.com"
@@ -61,11 +63,21 @@ if __name__ == '__main__':
     database = "future"
     port = 3306
     sql = 'SELECT MobilePhone FROM member WHERE MobilePhone !="" ORDER BY MobilePhone DESC LIMIT 10'
+
+    # 返回元组数据格式
     # my_sql = pymysql.connect(host, user, password, database, port)
     # cursor = my_sql.cursor()
     # cursor.execute(sql)
     # result = cursor.fetchone()  # 返回结果为元组
     # print(result)
+
+    # 返回字典数据格式
+    # cont = pymysql.connect(host=host, user=user, password=password, database=database, port=port, cursorclass=pymysql.cursors.DictCursor)
+    # cur = cont.cursor()
+    # cur.execute(sql)
+    # print(cur.fetchone())  # 返回字典数据：{'MobilePhone': '18999999999'}
+
+    # 调用DoMysql函数
     mysql = DoMysql(host, user, password, database, port)
-    res = mysql.fecth_all(sql=sql)
+    res = mysql.fecth_one(sql=sql)
     print(res)

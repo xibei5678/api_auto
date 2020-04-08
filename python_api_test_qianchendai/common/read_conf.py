@@ -47,7 +47,7 @@ class DoConf:
 
 
 if __name__ == '__main__':
-    read_conf = ReadConf()
+    read_conf = DoConf()
     # url =read_conf.get_conf_str(section="api", option="url")
     # print(url)
     # read_conf.write_conf(r'F:\python_lemon\api_test\python_study\python_20191230_配置文件.conf', "配置", "名字", "多多")
