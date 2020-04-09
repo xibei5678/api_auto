@@ -12,13 +12,13 @@ from python_api_test_qianchendai.common.read_conf import DoConf
 class DoMysql:
 
     def __init__(self):
-        host = ReadConf().get_conf_str("mysql", "host")
-        user = ReadConf().get_conf_str("mysql", "user")
-        password = ReadConf().get_conf_str("mysql", "password")
-        database = ReadConf().get_conf_str("mysql", "database")
-        port = ReadConf().get_conf_int("mysql", "port")
+        host = DoConf().get_conf_str("mysql", "host")
+        user = DoConf().get_conf_str("mysql", "user")
+        password = DoConf().get_conf_str("mysql", "password")
+        database = DoConf().get_conf_str("mysql", "database")
+        port = DoConf().get_conf_int("mysql", "port")
         try:
-            self.cont = pymysql.connect(host=host, user=user, password=password, database=database, port=port)
+            self.cont = pymysql.connect(host=host, user=user, password=password, database=database, port=port, cursorclass=pymysql.cursors.DictCursor)
         except Exception as e:
             raise e
 

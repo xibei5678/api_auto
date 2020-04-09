@@ -11,14 +11,14 @@ from unittest import TestCase
 
 from python_api_test_qianchendai.common.http_requets import HttpRequest
 import json
-from python_api_test_qianchendai.common.read_conf import ReadConf
+from python_api_test_qianchendai.common.read_conf import DoConf
 from python_api_test_qianchendai.common.do_excel import DoExcel
-from ddt import ddt,data,unpack
+from ddt import ddt, data, unpack
 
 wb = DoExcel(r"C:\Users\Administrator\Desktop\cases .xlsx")
 sheet_name = 'login'
 case_data = wb.get_case(sheet_name)
-read_conf = ReadConf()  # 创建实例 读取测试环境配置文件中的url
+read_conf = DoConf()  # 创建实例 读取测试环境配置文件中的url
 
 @ddt
 class TestLogin(TestCase):

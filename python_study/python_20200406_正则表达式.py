@@ -142,7 +142,7 @@ print(r_2)
 # # pattern： 正则模型
 # # repl   ： 要替换的字符串
 # # string ： 要匹配的字符串
-# # count  ： 指定匹配个数
+# # count  ： 指定匹配个数,默认0为全部匹配。
 # # flags  ： 匹配模式
 
 r_sub = re.sub("a\w", "替换", "sdfadfdfadsfsfafsff")
