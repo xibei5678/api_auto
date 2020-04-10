@@ -16,10 +16,10 @@ class DoConf:
         self.conf.read(global_conf, encoding='utf-8')
         value = self.conf.get("button", "switch")
         if value == "on":
-            self.conf.read(test_conf, encoding="utf-8")
-
+            self.file_name = test_conf
         elif value == "off":
-            self.conf.read(online_conf, encoding="utf-8")
+            self.file_name = online_conf
+        self.conf.read(self.file_name, encoding="utf-8")
 
     def get_conf_str(self, section, option):  # 从配置文件中获取的值为str
         return self.conf.get(section, option)
@@ -33,16 +33,16 @@ class DoConf:
     def get_conf_float(self, section, option):   # 从配置文件中获取的值为float
         return self.conf.getfloat(section, option)
 
-    def write_conf(self, file_name, section, option, value):  # 向配置文件中写入
-        self.conf.read(file_name, encoding='utf-8')
+    def write_conf(self, section, option, value):  # 向配置文件中写入
+
         if section not in self.conf.sections():
             self.conf.add_section(section)
             self.conf.set(section=section, option=option, value=value)
-            with open(file_name, "w+", encoding="utf-8") as f:
+            with open(self.file_name, "w+", encoding="utf-8") as f:
                 self.conf.write(f)
         else:
             self.conf.set(section=section, option=option, value=value)
-            with open(file_name, "w+", encoding="utf-8") as f:
+            with open(self.file_name, "w+", encoding="utf-8") as f:
                 self.conf.write(f)
 
 

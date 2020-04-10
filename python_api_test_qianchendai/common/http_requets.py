@@ -47,8 +47,8 @@ class HttpRequest:
 
 if __name__ == '__main__':
 
-    url = "http://test.lemonban.com/futureloan/mvc/api/member/login"
-    params = {"mobilephone": "13201231230", "pwd": "123456"}
+    url = "http://test.lemonban.com/futureloan/mvc/api/member/register"
+    params = {"mobilephone": "19100000001", "pwd": "123456"}
     method = 'post'
     a = HttpRequest(method, url, params)
     print(a.get_text())

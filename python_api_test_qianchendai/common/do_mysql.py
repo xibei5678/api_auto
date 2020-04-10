@@ -23,9 +23,13 @@ class DoMysql:
             raise e
 
     def fecth_one(self, sql):  # 返回一条数据
-        curo = self.cont.cursor()  # 建立游标
-        curo.execute(sql)  # 执行sql
-        return curo.fetchone()  # 返回结果数据 元组形式
+        self.curo = self.cont.cursor()  # 建立游标
+        self.curo.execute(sql)  # 执行sql
+        return self.curo.fetchone()  # 返回结果数据 元组形式
+
+    def close_cursor(self):
+        self.curo.close()
+
 
     def close_connect(self):  # 断开连接
         return self.cont.close()
