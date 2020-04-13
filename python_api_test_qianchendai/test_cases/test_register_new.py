@@ -43,7 +43,7 @@ class TestRegister(TestCase):
 
     def setUp(self):
         self.mysql = DoMysql()
-        print("*" * 20 + "用例执行开始" + "*" * 20)
+        print("*" * 20 + "用例执行准备" + "*" * 20)
 
     @data(*cases_data)
     def test_register(self, case):

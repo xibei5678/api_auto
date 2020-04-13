@@ -44,14 +44,19 @@ class HttpRequest:
     def get_json(self):  # 获取返回的字典对象
         return self.res.json()
 
+    def get_cookies(self):
+        return self.res.cookies
+
 
 if __name__ == '__main__':
 
-    url = "http://test.lemonban.com/futureloan/mvc/api/member/register"
-    params = {"mobilephone": "19100000001", "pwd": "123456"}
+    url = "http://test.lemonban.com/futureloan/mvc/api/member/login"
+    params = {"mobilephone": "13201231230", "pwd": "123456"}
     method = 'post'
     a = HttpRequest(method, url, params)
     print(a.get_text())
+    print(a.get_text()['msg'])
+    print(a.get_cookies())
 
 
 
