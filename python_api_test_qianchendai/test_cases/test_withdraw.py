@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 '''
-@File  : test_reharge.py
-@Date  : 2020/4/13 0013 11:09
+@File  : test_withdraw.py
+@Date  : 2020/4/15 0015 14:18
 @Author: xibei
 '''
+
 
 from unittest import TestCase
 from python_api_test_qianchendai.common.do_excel import DoExcel
@@ -19,7 +20,7 @@ import re
 import os
 import time
 
-sheet_name = "recharge"
+sheet_name = "withdraw"
 file_name = os.path.join(test_data_dir, 'test_case.xlsx')
 do_excel = DoExcel(file_name)
 cases_data = do_excel.get_case(sheet_name)
@@ -36,10 +37,6 @@ class Recharge(TestCase):
 
     def setUp(self):
         print("*" * 20 + "用例执行准备" + "*" * 20)
-        sql = 'SELECT LeaveAmount FROM member WHERE MobilePhone ={}'.format(getattr(Context, 'normal_name'))
-        self.amount_begin = mysql.fecth_one(sql=sql)['LeaveAmount']
-        mysql.close_cursor()
-        print("充值前余额:{}".format(self.amount_begin))
 
     @data(*cases_data)
     def test_recharge(self, case):
@@ -58,9 +55,10 @@ class Recharge(TestCase):
             cookies = None
 
         # 查询数据库
-        # sql = 'SELECT LeaveAmount FROM member WHERE MobilePhone ={}'.format(getattr(Context, 'normal_name'))
-        # amount_begin = mysql.fecth_one(sql=sql)['LeaveAmount']
-        # print("充值前余额:{}".format(amount_begin))
+        if case.check_sql:
+            sql = 'SELECT LeaveAmount FROM member WHERE MobilePhone ={}'.format(params['mobilephone'])
+            amount_begin = mysql.fecth_one(sql=sql)['LeaveAmount']
+            print("提现前余额:{}".format(amount_begin))
 
         # 发起请求
         res = HttpRequest(method=case.method, url=url, params=params, cookies=cookies)
@@ -84,24 +82,19 @@ class Recharge(TestCase):
             raise e
 
         # 再次查询数据库
-        if res.get_json()["msg"] == "充值成功":
+        if case.check_sql and res.get_json()["msg"] == "取现成功":
             time.sleep(3)
             sql = 'SELECT * FROM member WHERE MobilePhone ={}'.format(params['mobilephone'])
             amount_after = mysql.fecth_one(sql=sql)['LeaveAmount']
-            print("充值后余额:{}".format(amount_after))
+            print("提现后余额:{}".format(amount_after))
             try:
-                self.assertEqual(float(self.amount_begin)+float(params["amount"]), float(amount_after))
+                self.assertEqual(float(amount_begin)-float(params["amount"]), float(amount_after))
             except AssertionError as e:
                 raise e
 
     def tearDown(self):
-        mysql.close_cursor()
-        # mysql.close_connect()
         print("*" * 20 + "用例执行结束" + "*" * 20)
 
     @classmethod
     def tearDownClass(cls):
         mysql.close_connect()
-
-
-

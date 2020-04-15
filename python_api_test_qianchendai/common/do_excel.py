@@ -19,6 +19,7 @@ class Case:
         self.title = None
         self.params = None
         self.expect = None
+        self. check_sql = None
 
 
 class DoExcel:
@@ -52,6 +53,7 @@ class DoExcel:
             case.title = sheet.cell(row=r, column=4).value
             case.params = sheet.cell(row=r, column=5).value
             case.expect = sheet.cell(row=r, column=6).value
+            case.check_sql = sheet.cell(row=r, column=7).value
             case_data.append(case)
         return case_data
 

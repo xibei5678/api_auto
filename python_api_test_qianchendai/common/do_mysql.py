@@ -25,6 +25,7 @@ class DoMysql:
     def fecth_one(self, sql):  # 返回一条数据
         self.curo = self.cont.cursor()  # 建立游标
         self.curo.execute(sql)  # 执行sql
+        self.cont.commit()  # 手动提交事务
         return self.curo.fetchone()  # 返回结果数据 元组形式
 
     def close_cursor(self):
