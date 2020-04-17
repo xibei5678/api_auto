@@ -18,7 +18,7 @@ class DoMysql:
         database = DoConf().get_conf_str("mysql", "database")
         port = DoConf().get_conf_int("mysql", "port")
         try:
-            self.cont = pymysql.connect(host=host, user=user, password=password, database=database, port=port, cursorclass=pymysql.cursors.DictCursor)
+            self.cont = pymysql.connect(host=host, user=user, password=password, database=database, port=port, cursorclass=pymysql.cursors.DictCursor, charset='utf8')
         except Exception as e:
             raise e
 
@@ -27,6 +27,7 @@ class DoMysql:
         self.curo.execute(sql)  # 执行sql
         self.cont.commit()  # 手动提交事务
         return self.curo.fetchone()  # 返回结果数据 元组形式
+
 
     def close_cursor(self):
         self.curo.close()
@@ -43,3 +44,4 @@ if __name__ == '__main__':
     my_sql = DoMysql()
     result = my_sql.fecth_one(sql)
     print(result)
+

@@ -17,8 +17,12 @@
 #         d.执行sql
 #         e.返回结果
 
-# 4：注意：如果需要返回的数据格式为字典，可使用connect中的cursorclass参数，
-#        cursorclass=pymysql.cursors.DictCursor时，fetchone或fetchall 返回的数据均为字典，不再为元祖
+# 4：注意：（1）.如果需要返回的数据格式为字典，可使用connect中的cursorclass参数，
+#              cursorclass=pymysql.cursors.DictCursor时，fetchone或fetchall 返回的数据均为字典，不再为元祖
+#        （2）. 一个连接下，多个cursor查询数据库时，需手动提交事务，才能保证下一次提交查询正确
+#              手动提交事务：connect.commit()
+#        （3）.查询sql中包含中文，或结果中包含，需添加编码。connect中的charset默认为空字符串。
+#              将charset='utf8',即可进行编码。
 
 import pymysql
 
@@ -35,7 +39,8 @@ class DoMysql:
         curo = self.cont.cursor()  # 建立游标
         curo.execute(sql)  # 执行sql
         result = curo.fetchone()  # 返回结果数据 元组形式
-        curo.close()  # 关闭游标
+        self.cont.commit()  # 提交事务
+
         return result
 
 
@@ -43,7 +48,6 @@ class DoMysql:
         curo = self.cont.cursor()  # 建立游标
         curo.execute(sql)  # 执行sql
         result = curo.fetchall()  # 返回结果数据 元组形式
-        curo.close()
         return result
 
     # def fecth_many(self, sql, size):  # 数据库查询 返回多条数据 size:返回条数
