@@ -58,26 +58,13 @@ class TestAudit(TestCase):
 
     @data(*cases_data)
     def test_add(self, case):
+
         # 参数检查
         url = conf.get_conf_str("api", "url") + case.url
         print("请求地址url：{}".format(url))
-
-        # 请求参数处理
-        # if int(json.loads(case.params)['status']) >= 8:
-        #     status = json.loads(case.params)['status']
-        #     sql = "SELECT * FROM loan WHERE Status='{}'".format(status)
-        #     mysql_result = mysql.fecth_one(sql=sql)
-        #     loan_id = str(mysql_result['Id'])
-        #     setattr(Context, 'loan_id', loan_id)
-        #     params = DoRegex.replace(case.params)
-        #     params = json.loads(params)
-        #     params['status'] = int(status)-1
-
         params = DoRegex.replace(case.params)
         params = json.loads(params)
         print("请求参数params：{}".format(params))
-
-
 
         # 判断cookies是否存在Context中
         if hasattr(Context, 'cookies'):
@@ -103,3 +90,23 @@ class TestAudit(TestCase):
         actual = res.get_text()
         do_excel.write_by_case_id(sheet_name=sheet_name, case_id=case.id, column=8, value=actual)
         print(actual)
+
+        try:
+            self.assertEqual(case.expect, res.get_text())
+            result = 'pass'
+        except AssertionError as e:
+            result = 'fail'
+            raise e
+        do_excel.write_by_case_id(sheet_name=sheet_name, case_id=case.id, column=9, value=result)
+
+        # 验证更新状态成功的
+        if "更新状态成功" in res.get_json()["msg"] and case.check_sql:
+            sql = "SELECT * FROM loan WHERE Id='{}'".format(params['id'])
+            mysql_result = mysql.fecth_one(sql=sql)['Status']
+            try:
+                self.assertEqual(int(params['status']), mysql_result)
+            except AssertionError as e:
+                print("标状态：数据库验证失败")
+                raise e
+
+
